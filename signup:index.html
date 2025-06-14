@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>注册账户</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-300 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white rounded-[3rem] w-full max-w-5xl flex shadow-lg overflow-hidden">
+    
+    <!-- 左侧区域 -->
+    <div class="w-1/2 p-10 flex flex-col justify-center items-start bg-white">
+      <div class="mb-8">
+        <div class="bg-yellow-400 w-20 h-20 shadow-md flex items-center justify-center text-black font-bold text-lg">
+          图标
+        </div>
+      </div>
+      <h1 class="text-3xl font-semibold text-black">注册账户</h1>
+    </div>
+
+    <!-- 分割线 -->
+    <div class="w-px bg-black my-10"></div>
+
+    <!-- 右侧表单区域 -->
+    <div class="w-1/2 p-10 flex flex-col justify-center">
+      <form class="space-y-6">
+        <div>
+          <label class="block mb-2 text-black font-medium" for="email">邮箱</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            class="w-full px-4 py-3 border border-black rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2 text-black font-medium" for="password">密码</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            class="w-full px-4 py-3 border border-black rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2 text-black font-medium" for="confirm-password">再次确认密码</label>
+          <input
+            id="confirm-password"
+            name="confirm-password"
+            type="password"
+            required
+            class="w-full px-4 py-3 border border-black rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="mt-6 w-full bg-yellow-400 text-black font-semibold py-3 rounded-full hover:bg-yellow-500 transition-colors"
+        >
+          注册
+        </button>
+      </form>
+    </div>
+
+  </div>
+</body>
+</html>
