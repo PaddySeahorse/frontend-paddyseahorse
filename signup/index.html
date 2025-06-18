@@ -10,13 +10,15 @@
 
   <!-- ✅ 移动端页面（仅超小屏显示） -->
   <div class="block md:hidden">
-    <div class="min-h-screen flex flex-col items-center justify-start px-6 py-8">
-      <div class="bg-yellow-400 w-24 h-24 mt-8 shadow-md flex items-center justify-center font-bold">
-        图标
+    <div class="min-h-screen bg-white rounded-t-[3rem] flex flex-col items-center justify-start px-6 py-8">
+      <div class="w-full bg-gray-300 flex flex-col items-start px-6 pt-8 pb-4 rounded-t-[3rem]">
+        <div class="bg-yellow-400 w-24 h-24 shadow-md flex items-center justify-center font-bold mb-4">
+          图标
+        </div>
+        <h1 class="text-3xl font-bold text-black">注册账户</h1>
       </div>
-      <h1 class="text-2xl font-bold mt-4 mb-8">注册账户</h1>
 
-      <form class="w-full space-y-4">
+      <form class="w-full space-y-6 mt-8 px-2">
         <div>
           <label class="block mb-2 text-black font-medium" for="email">邮箱</label>
           <input type="email" id="email" placeholder="请输入邮箱" class="w-full border border-black rounded-full px-4 py-3" />
@@ -29,7 +31,7 @@
           <label class="block mb-2 text-black font-medium" for="confirm-password">再次确认密码</label>
           <input type="password" id="confirm-password" placeholder="请再次输入密码" class="w-full border border-black rounded-full px-4 py-3" />
         </div>
-        <button class="w-full bg-black text-white font-bold text-lg py-4 rounded shadow-md mt-4">注册</button>
+        <button class="w-full bg-black text-white font-bold text-xl py-4 rounded-full shadow-md mt-4">注册</button>
       </form>
     </div>
   </div>
