@@ -73,6 +73,8 @@
 
   <script>
     function validateForm(event) {
+      event.preventDefault(); // 阻止默认提交
+
       const isMobile = window.innerWidth < 768;
       const prefix = isMobile ? '' : '-desktop';
 
@@ -100,13 +102,34 @@
         errorPwd.classList.add('hidden');
       }
 
-      if (!valid) {
-        event.preventDefault();
-      }
+      if (!valid) return false;
 
-      return valid;
-    }
-  </script>
+      // ✅ 向后端发送注册请求
+      fetch('https://paddyseahorse-register.onrender.com/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.value.trim(),
+          password: pwd.value,
+          confirmPassword: confirm.value
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message) {
+            alert('✅ 注册成功！');
+            // 可选跳转
+            // window.location.href = '/login';
+          } else {
+            alert('❌ 注册失败：' + (data.error || '未知错误'));
+          }
+        })
+        .catch(error => {
+          alert('❌ 网络错误：' + error.message);
+        });
 
+    	return false;
+ 	 }
+	</script>
 </body>
 </html>
