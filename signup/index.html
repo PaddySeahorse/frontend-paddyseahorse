@@ -71,65 +71,64 @@
     </div>
   </div>
 
-  <script>
-    function validateForm(event) {
-      event.preventDefault(); // 阻止默认提交
+  
+<script>
+  function validateForm(event) {
+    event.preventDefault(); // 阻止默认提交
 
-      const isMobile = window.innerWidth < 768;
-      const prefix = isMobile ? '' : '-desktop';
+    const isMobile = window.innerWidth < 768;
+    const prefix = isMobile ? '' : '-desktop';
 
-      const email = document.getElementById('email' + prefix);
-      const pwd = document.getElementById('password' + prefix);
-      const confirm = document.getElementById('confirm-password' + prefix);
-      const errorPwd = document.getElementById('error-message' + prefix);
-      const errorEmail = document.getElementById('error-email' + prefix);
+    const email = document.getElementById('email' + prefix);
+    const pwd = document.getElementById('password' + prefix);
+    const confirm = document.getElementById('confirm-password' + prefix);
+    const errorPwd = document.getElementById('error-message' + prefix);
+    const errorEmail = document.getElementById('error-email' + prefix);
 
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let valid = true;
 
-      let valid = true;
+    if (!email.value || !emailPattern.test(email.value)) {
+      errorEmail.classList.remove('hidden');
+      valid = false;
+    } else {
+      errorEmail.classList.add('hidden');
+    }
 
-      if (!email.value || !emailPattern.test(email.value)) {
-        errorEmail.classList.remove('hidden');
-        valid = false;
-      } else {
-        errorEmail.classList.add('hidden');
-      }
+    if (!pwd.value || !confirm.value || pwd.value !== confirm.value) {
+      errorPwd.classList.remove('hidden');
+      valid = false;
+    } else {
+      errorPwd.classList.add('hidden');
+    }
 
-      if (!pwd.value || !confirm.value || pwd.value !== confirm.value) {
-        errorPwd.classList.remove('hidden');
-        valid = false;
-      } else {
-        errorPwd.classList.add('hidden');
-      }
+    if (!valid) return false;
 
-      if (!valid) return false;
-
-      // ✅ 向后端发送注册请求
-      fetch('https://paddyseahorse-register.onrender.com/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email.value.trim(),
-          password: pwd.value,
-          confirmPassword: confirm.value
-        })
+    fetch('https://paddyseahorse-register.onrender.com/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value.trim(),
+        password: pwd.value,
+        confirmPassword: confirm.value
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.message) {
-            alert('✅ 注册成功！');
-            // 可选跳转
-            // window.location.href = '/login';
-          } else {
-            alert('❌ 注册失败：' + (data.error || '未知错误'));
-          }
-        })
-        .catch(error => {
-          alert('❌ 网络错误：' + error.message);
-        });
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert('✅ 注册成功！');
+        } else {
+          alert('❌ 注册失败：' + (data.error || '未知错误'));
+        }
+      })
+      .catch(error => {
+        alert('❌ 网络错误：' + error.message);
+      });
 
-    	return false;
- 	 }
-	</script>
+    return false;
+  }
+</script>
+
+
 </body>
 </html>
