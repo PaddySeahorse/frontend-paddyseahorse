@@ -1,3 +1,4 @@
+<!-- version-00.05.07 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -11,9 +12,7 @@
   <!-- 移动端页面 -->
   <div class="block md:hidden">
     <div class="w-full bg-gray-300 flex flex-col items-start px-6 pt-8 pb-4">
-      <div class="bg-yellow-400 w-24 h-24 shadow-md flex items-center justify-center font-bold mb-4">
-        图标
-      </div>
+      <div class="bg-white w-24 h-24 shadow-md flex items-center justify-center font-bold mb-4">前燕 </div>
       <h1 class="text-3xl font-bold text-black">注册账户</h1>
     </div>
 
@@ -33,14 +32,8 @@
           <input type="password" id="confirm-password" placeholder="请再次输入密码" class="w-full border border-black rounded-full px-4 py-3" />
           <p id="error-message" class="text-red-500 text-sm mt-2 hidden">两次密码输入不一致</p>
         </div>
-        <button id="submit-button" type="submit" class="w-full bg-black text-white font-bold text-xl py-4 rounded-full shadow-md mt-4 transition-colors duration-300">
+        <button id="submit-button" type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow transition-colors duration-300">
           <span id="submit-text">注册</span>
-          <span id="submit-dots" class="hidden ml-2 flex gap-1">
-            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-          </span>
-        </button>
       </form>
     </div>
   </div>
@@ -50,7 +43,7 @@
     <div class="bg-white rounded-[3rem] w-full max-w-5xl h-[600px] grid grid-cols-[1fr_1px_2fr] shadow-lg">
       <!-- 左侧区域 -->
       <div class="flex flex-col items-start pt-12 pl-12">
-        <div class="bg-yellow-400 w-24 h-24 flex items-center justify-center shadow-md mb-6">图标</div>
+        <div class="bg-white w-24 h-24 flex items-center justify-center shadow-md mb-6">前燕</div>
         <h2 class="text-3xl font-bold text-black">注册账户</h2>
       </div>
       <!-- 分割线 -->
@@ -72,14 +65,7 @@
             <input type="password" id="confirm-password-desktop" class="border border-black rounded-full px-4 py-2 w-full" />
             <p id="error-message-desktop" class="text-red-500 text-sm mt-2 hidden">两次密码输入不一致</p>
           </div>
-          <button id="submit-button-desktop" type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow transition-colors duration-300">
-            <span id="submit-text-desktop">注册</span>
-            <span id="submit-dots-desktop" class="hidden ml-2 flex gap-1">
-              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-            </span>
-          </button>
+          <button type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow">注册</button>
         </form>
       </div>
     </div>
@@ -92,11 +78,6 @@
       const isMobile = window.innerWidth < 768;
       const prefix = isMobile ? '' : '-desktop';
 
-      // 获取按钮元素
-      const button = document.getElementById('submit-button' + prefix);
-      const text = document.getElementById('submit-text' + prefix);
-      const dots = document.getElementById('submit-dots' + prefix);
-      
       const email = document.getElementById('email' + prefix);
       const pwd = document.getElementById('password' + prefix);
       const confirm = document.getElementById('confirm-password' + prefix);
@@ -122,12 +103,6 @@
 
       if (!valid) return false;
 
-      // 提交前更新按钮状态
-      button.disabled = true;
-      button.classList.add('bg-gray-500', 'opacity-70');
-      text.classList.add('hidden');
-      dots.classList.remove('hidden');
-
       fetch('https://paddyseahorse-register.onrender.com/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -147,13 +122,6 @@
         })
         .catch(error => {
           alert('❌ 网络错误：' + error.message);
-        })
-        .finally(() => {
-          // 请求完成后恢复按钮状态
-          button.disabled = false;
-          button.classList.remove('bg-gray-500', 'opacity-70');
-          text.classList.remove('hidden');
-          dots.classList.add('hidden');
         });
 
       return false;
