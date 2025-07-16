@@ -1,4 +1,4 @@
-<!-- version-00.05.08 -->
+<!-- version-00.06.04 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -7,102 +7,116 @@
   <title>前燕</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-300">
 
-  <!-- 移动端页面 -->
+<body class="bg-gray-300">
+  <!-- 移动网站 -->
   <div class="block md:hidden">
     <div class="w-full bg-gray-300 flex flex-col items-start px-6 pt-8 pb-4">
-      <div class="bg-white w-24 h-24 shadow-md flex items-center justify-center font-bold mb-4">前燕 </div>
+      <div class="bg-white rounded-[1rem] w-24 h-24 flex items-center justify-center font-bold text-xl mb-4">前燕</div>
       <h1 class="text-3xl font-bold text-black">注册账户</h1>
     </div>
-
     <div class="min-h-screen bg-white rounded-t-[3rem] flex flex-col items-center justify-start px-6 py-8">
-      <form class="w-full space-y-6 mt-2 px-2" onsubmit="return validateForm(event)">
+      <form class="w-full space-y-6 mt-2 px-2" onsubmit="return validateForm(event, 'mobile')">
         <div>
-          <label class="block mb-2 text-black font-medium" for="email">邮箱</label>
-          <input type="email" id="email" placeholder="请输入邮箱" class="w-full border border-black rounded-full px-4 py-3" />
-          <p id="error-email" class="text-red-500 text-sm mt-2 hidden">请输入有效邮箱</p>
+          <label class="block mb-2 text-black font-medium" for="email-mobile">邮箱</label>
+          <input type="email" id="email-mobile" placeholder="请输入邮箱" class="w-full border border-black rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          <p id="error-email-mobile" class="text-red-500 text-sm mt-2 hidden">请输入有效邮箱</p>
         </div>
         <div>
-          <label class="block mb-2 text-black font-medium" for="password">密码</label>
-          <input type="password" id="password" placeholder="请输入密码" class="w-full border border-black rounded-full px-4 py-3" />
+          <label class="block mb-2 text-black font-medium" for="password-mobile">密码</label>
+          <input type="password" id="password-mobile" placeholder="请输入密码" class="w-full border border-black rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-300" />
         </div>
         <div>
-          <label class="block mb-2 text-black font-medium" for="confirm-password">再次确认密码</label>
-          <input type="password" id="confirm-password" placeholder="请再次输入密码" class="w-full border border-black rounded-full px-4 py-3" />
-          <p id="error-message" class="text-red-500 text-sm mt-2 hidden">两次密码输入不一致</p>
+          <label class="block mb-2 text-black font-medium" for="confirm-password-mobile">再次确认密码</label>
+          <input type="password" id="confirm-password-mobile" placeholder="请再次输入密码" class="w-full border border-black rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          <p id="error-message-mobile" class="text-red-500 text-sm mt-2 hidden">两次密码输入不一致</p>
         </div>
-        <button id="submit-button" type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow transition-colors duration-300">
-          <span id="submit-text">注册</span>
+        <button id="submit-button-mobile" type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow transition-colors duration-300">
+          <span id="submit-text-mobile">注册</span>
+          <span id="submit-dots-mobile" class="hidden ml-2 flex gap-1 justify-center">
+            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+          </span>
+        </button>
       </form>
     </div>
   </div>
 
-  <!-- 桌面端页面 -->
+  <!-- 桌面网站 -->
   <div class="hidden md:flex items-center justify-center min-h-screen">
     <div class="bg-white rounded-[3rem] w-full max-w-5xl h-[600px] grid grid-cols-[1fr_1px_2fr] shadow-lg">
       <!-- 左侧区域 -->
       <div class="flex flex-col items-start pt-12 pl-12">
-        <div class="bg-white w-24 h-24 flex items-center justify-center shadow-md mb-6">前燕</div>
+        <div class="bg-gray-400 rounded-[1rem] w-24 h-24 flex items-center justify-center text-white text-xl font-bold mb-4">前燕</div>
         <h2 class="text-3xl font-bold text-black">注册账户</h2>
       </div>
       <!-- 分割线 -->
       <div class="bg-gray-400 h-[90%] self-center"></div>
       <!-- 右侧表单区域 -->
       <div class="flex flex-col justify-center px-12 space-y-6">
-        <form onsubmit="return validateForm(event)" class="space-y-6">
+        <form onsubmit="return validateForm(event, 'desktop')" class="space-y-6">
           <div>
             <label class="block mb-2 text-black font-medium" for="email-desktop">邮箱</label>
-            <input type="email" id="email-desktop" class="border border-black rounded-full px-4 py-2 w-full" />
+            <input type="email" id="email-desktop" placeholder="请输入邮箱" class="border border-black rounded-full px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-gray-300" />
             <p id="error-email-desktop" class="text-red-500 text-sm mt-2 hidden">请输入有效邮箱</p>
           </div>
           <div>
             <label class="block mb-2 text-black font-medium" for="password-desktop">密码</label>
-            <input type="password" id="password-desktop" class="border border-black rounded-full px-4 py-2 w-full" />
+            <input type="password" id="password-desktop" placeholder="请输入密码" class="border border-black rounded-full px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-gray-300" />
           </div>
           <div>
             <label class="block mb-2 text-black font-medium" for="confirm-password-desktop">再次确认密码</label>
-            <input type="password" id="confirm-password-desktop" class="border border-black rounded-full px-4 py-2 w-full" />
+            <input type="password" id="confirm-password-desktop" placeholder="请再次输入密码" class="border border-black rounded-full px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-gray-300" />
             <p id="error-message-desktop" class="text-red-500 text-sm mt-2 hidden">两次密码输入不一致</p>
           </div>
-          <button type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow">注册</button>
+          <button id="submit-button-desktop" type="submit" class="mt-6 w-full bg-black text-white font-bold text-xl py-3 rounded-full shadow transition-colors duration-300">
+            <span id="submit-text-desktop">注册</span>
+            <span id="submit-dots-desktop" class="hidden ml-2 flex gap-1 justify-center">
+              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+            </span>
+          </button>
         </form>
       </div>
     </div>
   </div>
 
   <script>
-    function validateForm(event) {
+    function validateForm(event, device) {
       event.preventDefault();
-
-      const isMobile = window.innerWidth < 768;
-      const prefix = isMobile ? '' : '-desktop';
-
+      // 检查表单内容
+      const prefix = `-${device}`;
       const email = document.getElementById('email' + prefix);
       const pwd = document.getElementById('password' + prefix);
       const confirm = document.getElementById('confirm-password' + prefix);
       const errorPwd = document.getElementById('error-message' + prefix);
       const errorEmail = document.getElementById('error-email' + prefix);
-
+      const button = document.getElementById('submit-button' + prefix);
+      const text = document.getElementById('submit-text' + prefix);
+      const dots = document.getElementById('submit-dots' + prefix);
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       let valid = true;
-
       if (!email.value || !emailPattern.test(email.value)) {
         errorEmail.classList.remove('hidden');
         valid = false;
       } else {
-        errorEmail.classList.add('hidden');
+errorEmail.classList.add('hidden');
       }
-
       if (!pwd.value || !confirm.value || pwd.value !== confirm.value) {
         errorPwd.classList.remove('hidden');
         valid = false;
       } else {
-        errorPwd.classList.add('hidden');
+errorPwd.classList.add('hidden');
       }
-
       if (!valid) return false;
-
+      
+      // 提交表单
+      button.disabled = true;
+      button.classList.add('bg-gray-500', 'h-12','opacity-70');
+      text.classList.add('hidden');
+      dots.classList.remove('hidden');
       fetch('https://paddyseahorse-register.onrender.com/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -116,17 +130,22 @@
         .then(data => {
           if (data.message) {
             alert('✅ 注册成功！');
+            event.target.reset();
           } else {
             alert('❌ 注册失败：' + (data.error || '未知错误'));
           }
         })
         .catch(error => {
           alert('❌ 网络错误：' + error.message);
+        })
+        .finally(() => {
+          button.disabled = false;
+          button.classList.remove('bg-gray-500', 'opacity-70');
+          text.classList.remove('hidden');
+          dots.classList.add('hidden');
         });
-
       return false;
     }
   </script>
-
 </body>
 </html>
