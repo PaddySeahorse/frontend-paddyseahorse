@@ -1,4 +1,4 @@
-<!-- version-00.06.04 -->
+<!-- version-00.06.05 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -98,25 +98,32 @@
       const dots = document.getElementById('submit-dots' + prefix);
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       let valid = true;
+      
+      // 重置错误状态
+      errorEmail.classList.add('hidden');
+      errorPwd.classList.add('hidden');
+      
+      // 验证邮箱格式
       if (!email.value || !emailPattern.test(email.value)) {
         errorEmail.classList.remove('hidden');
         valid = false;
-      } else {
-errorEmail.classList.add('hidden');
       }
+      
+      // 验证密码一致性
       if (!pwd.value || !confirm.value || pwd.value !== confirm.value) {
         errorPwd.classList.remove('hidden');
         valid = false;
-      } else {
-errorPwd.classList.add('hidden');
       }
+      
       if (!valid) return false;
       
       // 提交表单
       button.disabled = true;
-      button.classList.add('bg-gray-500', 'h-12','opacity-70');
+      button.classList.add('bg-gray-500', 'opacity-70');
       text.classList.add('hidden');
       dots.classList.remove('hidden');
+      
+      // 修复：添加/signup路径
       fetch('https://qianyan-register.paddyseahorse.workers.dev/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -125,24 +132,42 @@ errorPwd.classList.add('hidden');
           password: pwd.value,
         })
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.message) {
-            alert('✅ 注册成功！');
-            event.target.reset();
-          } else {
-            alert('❌ 注册失败：' + (data.error || '未知错误'));
-          }
-        })
-        .catch(error => {
-          alert('❌ 网络错误：' + error.message);
-        })
-        .finally(() => {
-          button.disabled = false;
-          button.classList.remove('bg-gray-500', 'opacity-70');
-          text.classList.remove('hidden');
-          dots.classList.add('hidden');
-        });
+      .then(response => {
+        // 根据状态码处理不同响应
+        if (response.ok) {
+          return response.json().then(data => {
+            if (data.message) {
+              alert('✅ 注册成功！');
+              event.target.reset();
+            } else {
+              throw new Error(data.error || '注册失败');
+            }
+          });
+        } else {
+          return response.json().then(errorData => {
+            // 根据状态码显示不同错误信息
+            let errorMsg = '注册失败';
+            if (response.status === 409) {
+              errorMsg = '该邮箱已被注册';
+            } else if (response.status === 403) {
+              errorMsg = '注册失败，请检查输入';
+            } else if (response.status === 500) {
+              errorMsg = '服务器错误，请稍后重试';
+            }
+            throw new Error(errorMsg);
+          });
+        }
+      })
+      .catch(error => {
+        alert(`❌ ${error.message}`);
+      })
+      .finally(() => {
+        button.disabled = false;
+        button.classList.remove('bg-gray-500', 'opacity-70');
+        text.classList.remove('hidden');
+        dots.classList.add('hidden');
+      });
+      
       return false;
     }
   </script>
