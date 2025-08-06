@@ -1,4 +1,4 @@
-<!-- version-00.06.08 -->
+<!-- version-00.06.09 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -25,6 +25,7 @@
         <div>
           <label class="block mb-2 text-black font-medium" for="password-mobile">密码</label>
           <input type="password" id="password-mobile" placeholder="请输入密码" maxlength="100" class="w-full border border-black rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          <p id="error-password-mobile" class="text-red-500 text-sm mt-2 hidden">密码不能为空</p>
         </div>
         <div>
           <label class="block mb-2 text-black font-medium" for="confirm-password-mobile">再次确认密码</label>
@@ -39,7 +40,6 @@
             <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
           </span>
         </button>
-        <!-- 添加加载提示 -->
         <p id="long-wait-mobile" class="text-gray-500 text-sm mt-2 hidden">正在处理，请稍候...</p>
       </form>
     </div>
@@ -66,6 +66,7 @@
           <div>
             <label class="block mb-2 text-black font-medium" for="password-desktop">密码</label>
             <input type="password" id="password-desktop" placeholder="请输入密码" maxlength="100" class="border border-black rounded-full px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-gray-300" />
+            <p id="error-password-deskpot" class="text-red-500 text-sm mt-2 hidden">密码不能为空</p>
           </div>
           <div>
             <label class="block mb-2 text-black font-medium" for="confirm-password-desktop">再次确认密码</label>
@@ -80,7 +81,6 @@
               <span class="w-1极.5 h-1.5 bg-white rounded-full animate-pulse"></span>
             </span>
           </button>
-          <!-- 添加加载提示 -->
           <p id="long-wait-desktop" class="text-gray-500 text-sm mt-2 hidden">正在处理，请稍候...</p>
         </form>
       </div>
@@ -96,6 +96,7 @@
       const pwd = document.getElementById('password' + prefix);
       const confirm = document.getElementById('confirm-password' + prefix);
       const errorPwd = document.getElementById('error-message' + prefix);
+      const emptyPwd = document.getElementById('error-password' + prefix);
       const errorEmail = document.getElementById('error-email' + prefix);
       const button = document.getElementById('submit-button' + prefix);
       const text = document.getElementById('submit-text' + prefix);
@@ -106,6 +107,7 @@
       
       // 重置错误状态
       errorEmail.classList.add('hidden');
+      emptyPwd.classList.add('hidden');
       errorPwd.classList.add('hidden');
       
       // 验证邮箱格式
@@ -115,7 +117,10 @@
       }
       
       // 验证密码一致性
-      if (!pwd.value || !confirm.value || pwd.value !== confirm.value) {
+      if (!pwd.value){
+        emptyPwd.classList.remove('hidden');
+        valid = false;
+      } else if (pwd.value !== confirm.value) {
         errorPwd.classList.remove('hidden');
         valid = false;
       }
@@ -178,7 +183,7 @@
         
         // 特殊处理网络错误和超时
         if (error.name === 'AbortError') {
-          alert('❌ 请求超时，请重试');
+          alert('❌ 请求超时，请立即重试');
         } else if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
           alert('❌ 网络连接失败，请检查网络');
         } else {
